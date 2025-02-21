@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة تحكم موظف الصيدلية</title>
+  <style>
+    :root {
+      --primary-color: #008037;
+      --text-color: #374151;
+      --bg-color: #f3f4f6;
+      --card-bg: #ffffff;
+      --border-color: #e5e7eb;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Tajawal', 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    /* بطاقة المحتوى بنمط جديد */
+    .card {
+      background: var(--card-bg);
+      border-radius: 0.75rem;
+      border-left: 4px solid var(--primary-color);
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px var(--shadow-color);
+    }
+
+    .card-header {
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.5rem;
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary-color);
+      margin-bottom: 0.25rem;
+    }
+
+    /* تصميم معلومات الموظف باستخدام flex */
+    .staff-info-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .info-item {
+      background: var(--bg-color);
+      border-radius: 0.5rem;
+      padding: 0.75rem 1rem;
+      flex: 1 1 calc(33.333% - 1rem);
+      min-width: 200px;
+    }
+
+    .info-label {
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin-bottom: 0.25rem;
+    }
+
+    .info-value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    /* تبويبات الطلبات بنمط جديد */
+    .tabs {
+      display: flex;
+      border-bottom: 2px solid var(--primary-color);
+      margin-bottom: 1.5rem;
+    }
+
+    .tab {
+      padding: 0.5rem 1rem;
+      border: none;
+      background: transparent;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 1rem 1rem 0 0;
+      color: var(--text-color);
+      transition: background 0.3s, color 0.3s;
+      margin-left: 1rem; /* في الـ RTL المسافة من اليسار */
+    }
+
+    .tab.active {
+      background: var(--primary-color);
+      color: #fff;
+    }
+
+    /* تصميم بطاقة الطلبات */
+    .order-card {
+      margin-bottom: 1.5rem;
+    }
+
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .order-header p {
+      font-size: 0.9rem;
+      color: #6b7280;
+    }
+
+    .order-details {
+      display: flex;
+      flex-direction: row-reverse;
+      gap: 2rem;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .prescription-image {
+      flex: 1 1 300px;
+      max-width: 400px;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 6px var(--shadow-color);
+    }
+
+    .medications-list {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .medication-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-color);
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+    }
+
+    .availability-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn {
+      padding: 0.5rem 1rem;
+      border: 1px solid transparent;
+      border-radius: 9999px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.3s, color 0.3s;
+      background: #e5e7eb;
+      color: var(--text-color);
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    .btn-yes {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .btn-no {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .btn-yes.active {
+      background: #16a34a;
+      color: #fff;
+    }
+
+    .btn-no.active {
+      background: #dc2626;
+      color: #fff;
+    }
+
+    .status-badge {
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .status-available {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .status-unavailable {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .status-partial {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    /* زر إرسال النتيجة */
+    .send-result-btn {
+      background: var(--primary-color);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s;
+      margin-top: 1rem;
+    }
+    .send-result-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    /* إخفاء محتوى التبويبات غير النشط */
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .order-details {
+        flex-direction: column;
+      }
+      .prescription-image {
+        margin: 0 auto;
+      }
+      .info-item {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- بطاقة معلومات الموظف -->
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">معلومات الموظف</h2>
+      </div>
+      <div class="card-content">
+        <div class="staff-info-grid">
+          <div class="info-item">
+            <span class="info-label">الاسم</span>
+            <span class="info-value">محمد أحمد</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">رقم الموظف</span>
+            <span class="info-value">EMP123456</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">الصيدلية</span>
+            <span class="info-value">صيدلية الشفاء</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">رقم الهاتف</span>
+            <span class="info-value">0123456789</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">البريد الإلكتروني</span>
+            <span class="info-value">mohamed@example.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- قسم الطلبات -->
+    <div class="tabs">
+      <button class="tab active" data-tab="prescription">طلبات بوصفة طبية</button>
+      <button class="tab" data-tab="otc">طلبات بدون وصفة</button>
+    </div>
+
+    <!-- طلبات بوصفة طبية -->
+    <div id="prescription" class="tab-content active">
+      <div class="card order-card">
+        <div class="order-header">
+          <div>
+            <h3 class="card-title">طلب رقم: RX001</h3>
+            <p>المريض: أحمد محمود | التاريخ: 16-02-2025</p>
+          </div>
+          <span class="status-badge status-pending" id="status-RX001">قيد الانتظار</span>
+        </div>
+        <div class="card-content">
+          <div class="order-details">
+            <img src="/api/placeholder/400/500" alt="وصفة طبية" class="prescription-image">
+            <div class="medications-list">
+              <div class="medication-item">
+                <span>أموكسيسيلين 500mg</span>
+                <div class="availability-buttons">
+                  <button class="btn btn-yes" onclick="updateAvailability('RX001', 'med1', true)">متوفر</button>
+                  <button class="btn btn-no" onclick="updateAvailability('RX001', 'med1', false)">غير متوفر</button>
+                </div>
+              </div>
+              <div class="medication-item">
+                <span>باراسيتامول 500mg</span>
+                <div class="availability-buttons">
+                  <button class="btn btn-yes" onclick="updateAvailability('RX001', 'med2', true)">متوفر</button>
+                  <button class="btn btn-no" onclick="updateAvailability('RX001', 'med2', false)">غير متوفر</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- زر إرسال النتيجة للطلب -->
+          <button id="send-RX001" class="send-result-btn" onclick="sendResult('RX001')">إرسال النتيجة</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- طلبات بدون وصفة -->
+    <div id="otc" class="tab-content">
+      <div class="card order-card">
+        <div class="order-header">
+          <div>
+            <h3 class="card-title">طلب رقم: OTC001</h3>
+            <p>العميل: سارة علي | التاريخ: 16-02-2025</p>
+          </div>
+          <span class="status-badge status-pending" id="status-OTC001">قيد الانتظار</span>
+        </div>
+        <div class="card-content">
+          <div class="medications-list">
+            <div class="medication-item">
+              <span>فيتامين C (2 علب)</span>
+              <div class="availability-buttons">
+                <button class="btn btn-yes" onclick="updateAvailability('OTC001', 'item1', true)">متوفر</button>
+                <button class="btn btn-no" onclick="updateAvailability('OTC001', 'item1', false)">غير متوفر</button>
+              </div>
+            </div>
+            <div class="medication-item">
+              <span>مسكن صداع (1 علبة)</span>
+              <div class="availability-buttons">
+                <button class="btn btn-yes" onclick="updateAvailability('OTC001', 'item2', true)">متوفر</button>
+                <button class="btn btn-no" onclick="updateAvailability('OTC001', 'item2', false)">غير متوفر</button>
+              </div>
+            </div>
+          </div>
+          <!-- زر إرسال النتيجة للطلب -->
+          <button id="send-OTC001" class="send-result-btn" onclick="sendResult('OTC001')">إرسال النتيجة</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // تبديل التبويبات
+    const tabs = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+
+        tab.classList.add('active');
+        const tabId = tab.getAttribute('data-tab');
+        document.getElementById(tabId).classList.add('active');
+      });
+    });
+
+
+    function updateAvailability(orderId, itemId, isAvailable) {
+      orderStatus[orderId][itemId] = isAvailable;
+
+      const parentItem = event.target.closest('.medication-item');
+      const buttons = parentItem.querySelectorAll('.btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      updateOrderStatus(orderId);
+    }
+
+    function updateOrderStatus(orderId) {
+      const items = orderStatus[orderId];
+      const statusBadge = document.getElementById(`status-${orderId}`);
+      const values = Object.values(items);
+      const allMarked = values.every(v => v !== null);
+
+      if (!allMarked) {
+        setStatus(statusBadge, 'pending');
+        // إعادة تفعيل زر الإرسال إذا كان معطل مسبقاً
+        document.getElementById(`send-${orderId}`).disabled = true;
+        return;
+      }
+
+      const allAvailable = values.every(v => v === true);
+      const allUnavailable = values.every(v => v === false);
+
+      if (allAvailable) {
+        setStatus(statusBadge, 'available');
+      } else if (allUnavailable) {
+        setStatus(statusBadge, 'unavailable');
+      } else {
+        setStatus(statusBadge, 'partial');
+      }
+      // تفعيل زر الإرسال عند اكتمال تحديد جميع البنود
+      document.getElementById(`send-${orderId}`).disabled = false;
+    }
+
+    function setStatus(badge, status) {
+      badge.classList.remove('status-pending', 'status-available', 'status-unavailable', 'status-partial');
+      badge.classList.add(`status-${status}`);
+
+      const statusText = {
+        'pending': 'قيد الانتظار',
+        'available': 'متوفر',
+        'unavailable': 'غير متوفر',
+        'partial': 'متوفر جزئياً'
+      };
+
+      badge.textContent = statusText[status];
+    }
+
+    function sendResult(orderId) {
+      const items = orderStatus[orderId];
+      // التأكد من تحديد جميع البنود قبل الإرسال
+      if (Object.values(items).includes(null)) {
+        alert("يرجى تحديد توافر جميع الأدوية قبل إرسال النتيجة.");
+        return;
+      }
+      const resultStatus = document.getElementById(`status-${orderId}`).textContent;
+      alert(`تم إرسال النتيجة: ${resultStatus} للعميل.`);
+      // تعطيل زر الإرسال بعد الإرسال لمنع تكرار العملية
+      document.getElementById(`send-${orderId}`).disabled = true;
+    }
+
+
+    const dashboardTabs = document.querySelectorAll('.tab-dashboard');
+    const dashboardTabContents = document.querySelectorAll('.tab-content');
+    
+    dashboardTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        dashboardTabs.forEach(t => t.classList.remove('active'));
+        dashboardTabContents.forEach(content => content.classList.remove('active'));
+        
+        tab.classList.add('active');
+        const tabId = tab.getAttribute('data-tab');
+        document.getElementById(tabId).classList.add('active');
+      });
+    });
+    
+    // تخزين حالة توافر الأدوية لكل طلب
+    const orderStatus = {
+      RX001: { med1: null, med2: null },
+      OTC001: { item1: null, item2: null }
+    };
+    
+    function updateAvailability(orderId, itemId, isAvailable) {
+      orderStatus[orderId][itemId] = isAvailable;
+      const parentItem = event.target.closest('.medication-item');
+      const buttons = parentItem.querySelectorAll('.btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      updateOrderStatus(orderId);
+    }
+    
+    function updateOrderStatus(orderId) {
+      const items = orderStatus[orderId];
+      const statusBadge = document.getElementById(`status-${orderId}`);
+      const values = Object.values(items);
+      const allMarked = values.every(v => v !== null);
+      if(!allMarked) {
+        setStatus(statusBadge, 'pending');
+        document.getElementById(`send-${orderId}`).disabled = true;
+        return;
+      }
+      const allAvailable = values.every(v => v === true);
+      const allUnavailable = values.every(v => v === false);
+      if(allAvailable) {
+        setStatus(statusBadge, 'available');
+      } else if(allUnavailable) {
+        setStatus(statusBadge, 'unavailable');
+      } else {
+        setStatus(statusBadge, 'partial');
+      }
+      document.getElementById(`send-${orderId}`).disabled = false;
+    }
+    
+    function setStatus(badge, status) {
+      badge.classList.remove('status-pending', 'status-available', 'status-unavailable', 'status-partial');
+      badge.classList.add(`status-${status}`);
+      const statusText = {
+        pending: 'قيد الانتظار',
+        available: 'متوفر',
+        unavailable: 'غير متوفر',
+        partial: 'متوفر جزئياً'
+      };
+      badge.textContent = statusText[status];
+    }
+    
+    function sendResult(orderId) {
+      const items = orderStatus[orderId];
+      if(Object.values(items).includes(null)){
+        alert("يرجى تحديد توافر جميع الأدوية قبل إرسال النتيجة.");
+        return;
+      }
+      const resultStatus = document.getElementById(`status-${orderId}`).textContent;
+      alert(`تم إرسال النتيجة: ${resultStatus} للعميل.`);
+      document.getElementById(`send-${orderId}`).disabled = true;
+    }
+  </script>
+</body>
+</html>
+

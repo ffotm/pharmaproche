@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <title>search</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+            /* Changed to Tajawal for better Arabic support */
+        }
+        
+         :root {
+            --primary-color: #008037;
+            --secondary-color: #a8cf45;
+            --text-dark: #2D3748;
+            --text-light: #666;
+            --border-color: #e2e8f0;
+            --white: #ffffff;
+            --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin-top: 80px;
+        }
+        
+        .search-area {
+            flex-grow: 1;
+            width: 90%;
+            margin-left: 50px;
+            margin-right: 50px;
+            margin-top: 150px;
+            padding: 30px 10% 30px;
+            border: 0.5px solid #999;
+            border-radius: 10px;
+            background: #f8f9fa;
+        }
+        
+        .nav-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        /*.search-area {
+    width: 90%;
+    height: auto;
+    margin: 50px auto 0;
+    border: .5px solid #999;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 72px 10% 50px;
+    position: relative;
+    top: 200px;
+    flex: 1;
+}*/
+        
+        .search-area__form {
+            display: flex;
+            height: 60px;
+        }
+        
+        form {
+            display: block;
+            margin-top: 0em;
+            unicode-bidi: isolate;
+        }
+        
+        .search-area__location-field {
+            width: 100%;
+            display: flex;
+            background: #f2f6fa;
+            border-radius: 10px;
+            height: 60px;
+            padding: 0 25px;
+            margin-left: 20px;
+        }
+        
+        img {
+            overflow-clip-margin: content-box;
+            overflow: clip;
+        }
+        
+        .search-area__location-input {
+            border: none;
+            background: none;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 10px;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 24px;
+            color: #464855;
+        }
+        
+        .search-area__med-keyword {
+            width: 100%;
+            border: .25px solid #aeb0b3;
+            box-sizing: border-box;
+            border-radius: 10px;
+            padding: 0 25px;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 24px;
+            color: #464855;
+            height: 60px;
+        }
+        
+        .search-area__submit {
+            margin-left: 20px;
+            height: 60px;
+            background: linear-gradient(270deg, #2b9b47, #56bbec);
+            border-radius: 10px;
+            border: none;
+            padding: 0 37px;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 28px;
+            color: #fff;
+            cursor: pointer;
+        }
+        
+        section {
+            display: block;
+            unicode-bidi: isolate;
+        }
+        /*  header  */
+        
+        .header {
+            background-color: var(--white);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 0.75rem 2rem;
+            position: fixed;
+            margin: 0 auto;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            height: 80px;
+            /* Fixed height for consistency */
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 100%;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            font-size: 1.5rem;
+            font-weight: 505;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding: 5px 0;
+        }
+        
+        .logo img {
+            height: 60px;
+            /* Adjusted height */
+            width: auto;
+            object-fit: contain;
+        }
+        /* Language Switch Button */
+        
+        .language-switch {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 0.5rem 1.25rem;
+            border-radius: 5px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .language-switch:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .language-switch::before {
+            content: "🌐";
+            font-size: 1.1rem;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .navbar-brand {
+            width: 70px;
+            height: 60px;
+            padding: 5px;
+        }
+        
+        .fil {
+            width: 150px;
+            margin: 20px;
+            border: 1px solid #727588;
+            padding: 20px;
+            color: #2b9b47;
+            border-radius: 10px;
+        }
+        
+        .footer {
+            background-color: #00220f;
+            color: #fff;
+            padding: 3rem 0 1rem;
+            font-family: 'Cairo', sans-serif;
+            direction: rtl;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 4rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-heading {
+            color: #7effa9;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.7rem;
+        }
+        
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #ffffff;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-link {
+            color: #e8eaf6;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .footer-link:hover {
+            color: #ffffff;
+        }
+        
+        .footer-link i,
+        .contact-info i {
+            margin-left: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .contact-info li {
+            display: flex;
+            align-items: center;
+        }
+        
+        .social-icons {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #ffffff;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background-color: #8c9eff;
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .copyright {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        .footer-bottom-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .footer-bottom-links a {
+            color: #e8eaf6;
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer-bottom-links a:hover {
+            opacity: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        /* Responsive Design */
+        
+        @media (max-width: 992px) {
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+        
+        .product-title {
+            flex-grow: 1;
+        }
+        
+        .product-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .product-name-ar {
+            font-size: 1em;
+            color: #666;
+            text-align: right;
+        }
+        
+        .pill-icon {
+            width: 24px;
+            height: 24px;
+            fill: #4A90E2;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .badge-prescription {
+            background-color: #E53E3E;
+        }
+        
+        .badge-otc {
+            background-color: #38A169;
+        }
+        
+        .badge-stock {
+            background-color: #38A169;
+        }
+        
+        .badge-out {
+            background-color: #E53E3E;
+        }
+        
+        .product-description {
+            color: #666;
+            margin: 10px 0;
+        }
+        
+        .product-category {
+            font-size: 0.9em;
+            color: #4A5568;
+            margin-bottom: 10px;
+        }
+        
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+        
+        .product-price {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2D3748;
+        }
+        
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        #productsGrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin-left: 60px;
+            margin-bottom: 20px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .product-card.selected {
+            border: 2px solid #38A169;
+            background-color: #f0fff4;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        /* Quantity and Remove Button */
+        
+        .cart-quantity {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .selected .cart-quantity {
+            display: flex;
+        }
+        
+        .quantity-btn {
+            background: #e2e8f0;
+            border: none;
+            border-radius: 4px;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        /* Cart Summary */
+        
+        #bottombar {
+            /* Hidden by default */
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 15px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            text-align: center;
+            color: rgb(0, 0, 0);
+        }
+        
+        .cart-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .confirm-btn {
+            background: #38A169;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s;
+        }
+        
+        .confirm-btn:hover {
+            background: #2F855A;
+        }
+        
+        .confirm-btn:disabled {
+            background: #A0AEC0;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="#" class="logo" style="display: flex; align-items: center;">
+                <img src="/img/pharma-removebg-preview.png" alt="Logo" style="width: 120px; height: auto;">
+            </a>
+            <div class="nav-links" style="display: flex; gap: 20px; align-items: center;">
+                <a href="index.html" style="color:#008037; text-decoration: none; font-size: 1em;">الرئيسية</a>
+                <a href="#" style="color: #008037; text-decoration: none; font-size: 1em;">الصيدليات</a>
+                <a href="#" style="color: #008037; text-decoration: none; font-size: 1em;">الأدوية</a>
+                <a href="Contactus.html" style="color: #008037; text-decoration: none; font-size: 1em;">اتصل بنا</a>
+                <a href="login.html" class="login-button" style="padding: 10px 20px; font-size: 1em; background-color:#008037; color: white; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; text-decoration: none;">تسجيل الدخول</a>
+                <button class="language-switch" onclick="toggleLanguage()" dir="ltr" style="padding: 10px 20px; font-size: 1em; background-color:#008037; color: white; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;">English</button>
+            </div>
+        </nav>
+    </header>
+
+
+    <div class="search-area">
+        <form class="search-area__form" onsubmit="lookfor();">
+            <input type="text" placeholder="اسم الدواء" class="search-area__med-keyword">
+            <div class="search-area__location-field">
+                <input type="text" placeholder="الصيدلة" class="search-area__location-input" disabled>
+
+                <img src="/pics/65492-200.png" alt="">
+            </div>
+            <input type="submit" value="ابحث" class="search-area__submit" onclick="lookfor()">
+
+        </form>
+    </div>
+
+    <div class="filter container d-flex mt-3">
+        <div class="container fil">
+            <label for="sortOrder">الترتيب من</label>
+            <select id="sortOrder" class="form-select" style="color: #008037;">
+            <option value="az" style="color: #008037;">A-Z</option>
+            <option value="za" style="color: #008037;">Z-A</option>
+            <option value="الثمن" style="color: #008037;">الثمن</option>
+        </select>
+        </div>
+
+    </div>
+    <div id="productsGrid"></div>
+    <div id="bottombar" style="display: none;">
+        <div class="cart-info">
+            <div>عدد الطلبيات: <span id="itemCount">0</span></div>
+            <div>الثمن الكلي:<span id="totalPrice">0 دج</span></div>
+            <button id="confirmBtn" class="confirm-btn" disabled onclick="goToCart()">تأكيد الطلبيات</button>
+
+        </div>
+
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3 class="footer-heading">روابط سريعة</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link"><i class="fas fa-home"></i> الرئيسية</a></li>
+                        <li><a href="#" class="footer-link"><i class="fas fa-store"></i> الصيدليات</a></li>
+                        <li><a href="#" class="footer-link"><i class="fas fa-pills"></i> الأدوية</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-heading">خدماتنا</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link"><i class="fas fa-search"></i> البحث عن صيدلية</a></li>
+                        <li><a href="#" class="footer-link"><i class="fas fa-prescription"></i> طلب دواء</a></li>
+                        <li><a href="#" class="footer-link"><i class="fas fa-truck"></i> التوصيل</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-heading">تواصل معنا</h3>
+                    <ul class="footer-links contact-info">
+                        <li><i class="fas fa-phone"></i> هاتف: 123-456-7890</li>
+                        <li><i class="fas fa-envelope"></i> البريد: info@pharmacyfinder.com</li>
+                        <li class="social-icons">
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright">جميع الحقوق محفوظة &copy; 2025 - PharmaProche</p>
+                <div class="footer-bottom-links">
+                    <a href="#">سياسة الخصوصية</a>
+                    <a href="#">الشروط والأحكام</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        const medicines = [{
+                id: 1,
+                name: "Paracetamol",
+                arabicName: "باراسيتاموم",
+                price: 150,
+                category: "مسكن الالم",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 2,
+                name: "Amoxicillin",
+                arabicName: "أموكسيسيلين",
+                price: 200,
+                category: "مضاد حيوي",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 3,
+                name: "Vitamin D3",
+                arabicName: "فيتامين د٣",
+                price: 750,
+                category: "فيتامينات",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 4,
+                name: "Omeprazole",
+                arabicName: "أوميبرازول",
+                price: 550,
+                category: "تسهيل الهضم",
+                inStock: false,
+                prescription: true
+            }, {
+                id: 5,
+                name: "Cetirizine",
+                arabicName: "سيتريزين",
+                price: 300,
+                category: "الحساسية",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 6,
+                name: "Ibuprofen",
+                arabicName: "ايبوبروفي",
+                price: 200,
+                category: "مسكن الالم",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 7,
+                name: "Metformin",
+                arabicName: "ميتفورمين",
+                price: 300,
+                category: "علاج السكري",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 9,
+                name: "Loratadine",
+                arabicName: "لوراتادين",
+                price: 120,
+                category: "مضاد حساسية",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 10,
+                name: "Salbutamol",
+                arabicName: "سالبوتامول",
+                price: 200,
+                category: "علاج الربو",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 11,
+                name: "Losartan",
+                arabicName: "لوسارتان",
+                price: 300,
+                category: "علاج ضغط الدم",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 12,
+                name: "Aspirin",
+                arabicName: "أسبرين",
+                price: 100,
+                category: "مميع للدم",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 13,
+                name: "Gaviscon",
+                arabicName: "جافيسكون",
+                price: 210,
+                category: "مضاد حموضة",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 14,
+                name: "Augmentin",
+                arabicName: "أوجمنتين",
+                price: 450,
+                category: "مضاد حيوي",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 15,
+                name: "Efferalgan",
+                arabicName: "إيفيرالغان",
+                price: 130,
+                category: "مسكن وخافض للحرارة",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 16,
+                name: "Doliprane",
+                arabicName: "دوليبران",
+                price: 150,
+                category: "مسكن وخافض للحرارة",
+                inStock: true,
+                prescription: false
+
+            },
+
+
+
+
+            {
+                id: 17,
+                name: "Nurofen",
+                arabicName: "نيروفين",
+                price: 220,
+                category: "مسكن ومضاد التهاب",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 18,
+                name: "Spiramycin",
+                arabicName: "سبيراميسين",
+                price: 450,
+                category: "مضاد حيوي",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 19,
+                name: "Fucidin",
+                arabicName: "فيوسيدين",
+                price: 280,
+                category: "مضاد حيوي موضعي",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 20,
+                name: "Ciprofloxacin",
+                arabicName: "سيبروفلوكساسين",
+                price: 400,
+                category: "مضاد حيوي",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 21,
+                name: "Euphylline",
+                arabicName: "إيوفيللين",
+                price: 320,
+                category: "موسع للقصبات",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 22,
+                name: "Rennie",
+                arabicName: "ريني",
+                price: 180,
+                category: "مضاد حموضة",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 23,
+                name: "Smecta",
+                arabicName: "سميكتا",
+                price: 160,
+                category: "مضاد إسهال",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 24,
+                name: "Maalox",
+                arabicName: "مالوكس",
+                price: 200,
+                category: "مضاد حموضة",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 25,
+                name: "Flagyl",
+                arabicName: "فلاجيل",
+                price: 250,
+                category: "مضاد طفيليات وبكتيريا",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 26,
+                name: "Aerius",
+                arabicName: "أيريوس",
+                price: 270,
+                category: "مضاد حساسية",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 27,
+                name: "Zyrtec",
+                arabicName: "زيرتيك",
+                price: 260,
+                category: "مضاد حساسية",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 28,
+                name: "Telfast",
+                arabicName: "تلفاست",
+                price: 280,
+                category: "مضاد حساسية",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 29,
+                name: "Tramal",
+                arabicName: "ترامال",
+                price: 500,
+                category: "مسكن قوي",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 30,
+                name: "Morphine",
+                arabicName: "مورفين",
+                price: 1000,
+                category: "مسكن أفيوني",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 31,
+                name: "Dafalgan",
+                arabicName: "دافالغن",
+                price: 180,
+                category: "مسكن وخافض للحرارة",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 32,
+                name: "Solupred",
+                arabicName: "سولوبريد",
+                price: 340,
+                category: "كورتيكوستيرويد",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 33,
+                name: "Amoxil",
+                arabicName: "أموكسيل",
+                price: 200,
+                category: "مضاد حيوي",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 34,
+                name: "Xanax",
+                arabicName: "زانكس",
+                price: 600,
+                category: "مهدئ للقلق",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 35,
+                name: "Lexomil",
+                arabicName: "ليكسوميل",
+                price: 550,
+                category: "مهدئ للقلق",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 36,
+                name: "Spasfon",
+                arabicName: "سباسفون",
+                price: 180,
+                category: "مضاد تقلصات",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 37,
+                name: "Celestene",
+                arabicName: "سيليستين",
+                price: 270,
+                category: "كورتيكوستيرويد",
+                inStock: true,
+                prescription: true
+            },
+
+
+        ];
+
+        let cart = new Map();
+        let selectedProducts = 0;
+
+        // On med.html, retrieve the values directly
+        const pharmacyName = decodeURIComponent(sessionStorage.getItem("pharmacyName"));
+        const pharmacyLocation = sessionStorage.getItem("pharmacyLocation");
+
+        // Check the value of pharmacyName in the console
+        console.log("Pharmacy Name from sessionStorage:", pharmacyName);
+        console.log("Location from sessionStorage:", pharmacyLocation);
+
+        // Display the pharmacy name in the input field
+        document.querySelector('.search-area__location-input').value = pharmacyName;
+
+        function updateCartSummary() {
+            const itemCount = document.getElementById('itemCount');
+            const totalPrice = document.getElementById('totalPrice');
+            const confirmBtn = document.getElementById('confirmBtn');
+            let bottomBar = document.getElementById("bottombar");
+            const totalItems = Array.from(cart.values()).reduce((sum, qty) => sum + qty, 0);
+            bottomBar.style.display = totalItems > 0 ? "flex" : "none";
+
+            let total = 0,
+                count = 0;
+
+            cart.forEach((quantity, medicine) => {
+                count += quantity;
+                total += medicine.price * quantity;
+            });
+
+            itemCount.textContent = count;
+            totalPrice.textContent = `${total} DA`;
+            confirmBtn.disabled = count === 0;
+        }
+
+
+        function goToCart() {
+            sessionStorage.setItem("cartData", JSON.stringify(Array.from(cart.entries())));
+            window.location.href = "confirmation/cart.html";
+        }
+
+
+        function toggleMedicineInCart(medicine, card) {
+            if (!medicine.inStock) {
+                alert("لا يوجد");
+                return;
+            }
+
+            if (!cart.has(medicine)) {
+                cart.set(medicine, 1);
+                card.classList.add('selected');
+            }
+
+            updateCartSummary();
+        }
+
+        function updateQuantity(medicine, change, card) {
+            if (cart.has(medicine)) {
+                let newQuantity = cart.get(medicine) + change;
+
+                if (newQuantity <= 0) {
+                    cart.delete(medicine);
+                    card.classList.remove('selected');
+                } else {
+                    cart.set(medicine, newQuantity);
+                }
+            } else if (change > 0) {
+                cart.set(medicine, 1);
+                card.classList.add('selected');
+            }
+
+
+            const quantitySpan = card.querySelector('.quantity');
+            quantitySpan.textContent = cart.get(medicine) || 0;
+
+
+            const minusButton = card.querySelector('.minus');
+            minusButton.style.display = cart.get(medicine) > 0 ? 'inline-block' : 'none';
+
+            updateCartSummary();
+        }
+
+
+        function renderProducts(filteredMeds = medicines) {
+            const productsGrid = document.getElementById('productsGrid');
+
+            if (filteredMeds.length === 0) {
+                productsGrid.innerHTML = '<p class="text-muted">لا توجد نتائج مطابقة.</p>';
+                return;
+            }
+
+            productsGrid.innerHTML = filteredMeds.map(medicine => `
+                <div class="product-card ${cart.has(medicine) ? 'selected' : ''}" data-id="${medicine.id}">
+                    <div class="cart-quantity">
+                        <button class="quantity-btn minus">-</button>
+                        <span class="quantity">${cart.get(medicine) || 1}</span>
+                        <button class="quantity-btn plus">+</button>
+                    </div>
+                    <div class="product-header">
+                        <div class="product-title">
+                            <div class="product-name">${medicine.name}</div>
+                            <div class="product-name-ar">${medicine.arabicName}</div>
+                        </div>
+                        <svg class="pill-icon" viewBox="0 0 24 24">
+                            <path d="M4.5 12.5l8-8a4.95 4.95 0 117 7l-8 8a4.95 4.95 0 11-7-7z" stroke="currentColor" fill="none" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="badge ${medicine.prescription ? 'badge-prescription' : 'badge-otc'}">
+                            ${medicine.prescription ? 'وصفة طبية مطلوبة' : 'دون وصفة طبية'}
+                        </span>
+                    </div>
+                    <div class="product-category p-2">الصنف: ${medicine.category}</div>
+                    <div class="product-footer">
+                        <div class="product-price" >${medicine.price} da</div>
+                        <span class="badge ${medicine.inStock ? 'badge-stock' : 'badge-out'}">
+                            ${medicine.inStock ? 'In Stock' : 'Out of Stock'}
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+
+
+
+
+            document.querySelectorAll('.product-card').forEach(card => {
+                const medicine = medicines.find(m => m.id == card.dataset.id);
+
+                card.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('quantity-btn')) {
+                        toggleMedicineInCart(medicine, card);
+                    }
+                });
+
+                card.querySelector('.minus').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    updateQuantity(medicine, -1, card);
+                });
+
+                card.querySelector('.plus').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    updateQuantity(medicine, +1, card);
+                });
+            });
+
+        }
+
+        function sortProducts(order) {
+
+            filteredMeds = medicines;
+            filteredMeds.sort((a, b) => {
+                if (order === 'az') return a.name.localeCompare(b.name);
+                if (order === 'za') return b.name.localeCompare(a.name);
+                if (order === 'الثمن') return a.price - b.price;
+            });
+
+            renderProducts();
+        }
+
+        function lookfor() {
+            const searchInput = document.querySelector('.search-area__med-keyword').value.trim();
+
+            const filteredMeds = medicines.filter(med =>
+                med.name.toLowerCase().includes(searchInput.toLowerCase()) ||
+                med.arabicName.includes(searchInput) ||
+                med.category.toLowerCase().includes(searchInput.toLowerCase())
+            );
+
+            renderProducts(filteredMeds);
+        }
+
+
+
+        let selectedPayment = null;
+
+        function selectPayment(method) {
+            selectedPayment = method;
+
+
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+
+            document.getElementById(method).classList.add('selected');
+        }
+
+        function processPayment() {
+            if (!selectedPayment) {
+                alert("Please select a payment method before proceeding!");
+                return;
+            }
+
+            alert(`Payment Successful! Method: ${selectedPayment.toUpperCase()}`);
+            sessionStorage.removeItem("cartData");
+
+            document.getElementById('confirmation-page').classList.remove('active');
+            document.getElementById('success-page').classList.add('active');
+        }
+
+        function applyFilters() {
+            const sortOrder = document.getElementById('sortOrder').value;
+            sortProducts(sortOrder);
+        }
+
+
+
+
+
+
+        document.querySelector('.search-area__med-keyword').addEventListener('input', lookfor);
+        document.getElementById('sortOrder').addEventListener('change', () => applyFilters());
+
+
+
+        renderProducts();
+    </script>
+</body>
+
+</html>

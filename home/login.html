@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام تسجيل الدخول للصيدلية</title>
+    <style>
+        :root {
+            --primary-color: #0e9f6e;
+            --primary-hover: #057a55;
+            --secondary-color: #3f51b5;
+            --text-color: #374151;
+            --bg-color: #f3f4f6;
+            --input-bg: #ffffff;
+            --card-bg: #ffffff;
+            --border-color: #e5e7eb;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-image: url("/img/0adbc6acaac86c732e4cb94febced35c.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            line-height: 1.6;
+        }
+
+        .theme-switch,
+        .language-switch {
+            position: fixed;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            background: var(--card-bg);
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px var(--shadow-color);
+            z-index: 1000;
+        }
+
+        .theme-switch {
+            top: 1.5rem;
+            left: 1.5rem;
+        }
+
+        .language-switch {
+            top: 1.5rem;
+            right: 1.5rem;
+        }
+
+        .logo-container {
+            margin-bottom: 2.5rem;
+        }
+
+        .logo-placeholder {
+            width: 200px;
+            height: 200px;
+            background-color: #ffffff;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            box-shadow: 0 8px 16px var(--shadow-color);
+            color: #000;
+        }
+
+        .logo-placeholder img {
+            width: 100%;
+            height: auto;
+        }
+
+        .container {
+            background: var(--card-bg);
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px var(--shadow-color);
+            width: 100%;
+            max-width: 480px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: var(--input-bg);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tab {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            border-radius: 0.75rem;
+            color: var(--text-color);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            flex: 1;
+            font-size: 1rem;
+        }
+
+        .tab.active {
+            background: #008037;
+            color: white;
+        }
+
+        .form-container {
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--input-bg);
+            color: var(--text-color);
+        }
+
+        input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(14, 159, 110, 0.1);
+        }
+
+        button[type="submit"] {
+            background: linear-gradient(135deg, #008037, #008037);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(14, 159, 110, 0.2);
+        }
+
+        .toggle-new {
+            color: #008037;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            display: block;
+            text-align: center;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .success-message {
+            background: rgba(14, 159, 110, 0.1);
+            color: var(--primary-color);
+            text-align: center;
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                margin: 1rem;
+            }
+
+            .form-container {
+                padding: 1.5rem;
+            }
+
+            .theme-switch,
+            .language-switch {
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
+
+            .tab {
+                padding: 0.75rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <div class="logo-placeholder">
+            <img src="/img/pharma-removebg-preview.png" alt="">
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('staff')">موظف</button>
+            <button class="tab" onclick="switchTab('pharmacy')">صيدلية</button>
+        </div>
+
+        <div class="form-container">
+            <form id="staffLoginForm" onsubmit="return handleStaffLogin(event)">
+                <div class="form-group">
+                    <label>اسم المستخدم</label>
+                    <input type="text" id="staffUsername" required placeholder="ادخل اسم المستخدم">
+                </div>
+                <div class="form-group">
+                    <label>كلمة المرور</label>
+                    <input type="password" id="staffPassword" required placeholder="ادخل كلمة المرور">
+                </div>
+                <div class="form-group">
+                    <label>كود الصيدلية</label>
+                    <input type="text" id="pharmacyCode" required placeholder="ادخل كود الصيدلية">
+                </div>
+                <button type="submit">تسجيل الدخول</button>
+                <a class="toggle-new" onclick="toggleNewStaffForm()">مستخدم جديد؟ سجل هنا</a>
+            </form>
+
+            <form id="newStaffForm" class="hidden" onsubmit="return handleNewStaffRegistration(event)">
+                <div class="form-group">
+                    <label>الاسم الكامل</label>
+                    <input type="text" id="newStaffFullName" required placeholder="ادخل اسمك الكامل">
+                </div>
+                <div class="form-group">
+                    <label>اسم المستخدم</label>
+                    <input type="text" id="newStaffUsername" required placeholder="اختر اسم مستخدم">
+                </div>
+                <div class="form-group">
+                    <label>كلمة المرور</label>
+                    <input type="password" id="newStaffPassword" required placeholder="اختر كلمة مرور قوية">
+                </div>
+                <div class="form-group">
+                    <label>كود الصيدلية</label>
+                    <input type="text" id="newPharmacyCode" required placeholder="ادخل كود الصيدلية">
+                </div>
+                <div class="form-group">
+                    <label>رقم الهاتف</label>
+                    <input type="tel" id="newStaffPhone" required placeholder="ادخل رقم هاتفك">
+                </div>
+                <div class="form-group">
+                    <label>البريد الإلكتروني</label>
+                    <input type="email" id="newStaffEmail" required placeholder="ادخل بريدك الإلكتروني">
+                </div>
+                <button type="submit">تسجيل</button>
+                <a class="toggle-new" onclick="toggleNewStaffForm()">لديك حساب؟ سجل دخولك</a>
+            </form>
+
+            <form id="pharmacyLoginForm" class="hidden" onsubmit="return handlePharmacyLogin(event)">
+                <div class="form-group">
+                    <label>كود الصيدلية</label>
+                    <input type="text" id="pharmacyLoginCode" required placeholder="ادخل كود الصيدلية">
+                </div>
+                <div class="form-group">
+                    <label>كلمة المرور</label>
+                    <input type="password" id="pharmacyPassword" required placeholder="ادخل كلمة المرور">
+                </div>
+                <button type="submit">تسجيل الدخول</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+
+        function switchTab(type) {
+            const tabs = document.querySelectorAll('.tab');
+            const staffForm = document.getElementById('staffLoginForm');
+            const pharmacyForm = document.getElementById('pharmacyLoginForm');
+            const newStaffForm = document.getElementById('newStaffForm');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            if (type === 'staff') {
+                tabs[0].classList.add('active');
+                staffForm.classList.remove('hidden');
+                pharmacyForm.classList.add('hidden');
+                newStaffForm.classList.add('hidden');
+            } else {
+                tabs[1].classList.add('active');
+                staffForm.classList.add('hidden');
+                pharmacyForm.classList.remove('hidden');
+                newStaffForm.classList.add('hidden');
+            }
+        }
+
+        function toggleNewStaffForm() {
+            const loginForm = document.getElementById('staffLoginForm');
+            const newForm = document.getElementById('newStaffForm');
+            loginForm.classList.toggle('hidden');
+            newForm.classList.toggle('hidden');
+        }
+
+        function generateStaffId() {
+            return 'EMP' + Math.random().toString(36).substr(2, 9).toUpperCase();
+        }
+
+        function handleNewStaffRegistration(event) {
+            event.preventDefault();
+            
+            const staffId = generateStaffId();
+            const fullName = document.getElementById('newStaffFullName').value;
+            const username = document.getElementById('newStaffUsername').value;
+            const pharmacyCode = document.getElementById('newPharmacyCode').value;
+
+            const successMessage = document.createElement('div');
+            successMessage.className = 'success-message';
+            successMessage.textContent = `تم التسجيل بنجاح! رقم الموظف الخاص بك هو: ${staffId}`;
+            event.target.appendChild(successMessage);
+
+            return false;
+        }
+
+        function handleStaffLogin(event) {
+            event.preventDefault();
+            // إضافة منطق التحقق من تسجيل الدخول هنا
+            return false;
+        }
+
+        function handlePharmacyLogin(event) {
+            event.preventDefault();
+            // إضافة منطق التحقق من تسجيل الدخول هنا
+            return false;
+        }
+        function handleStaffLogin(event) {
+    event.preventDefault();
+    const username = document.getElementById('staffUsername').value;
+    const password = document.getElementById('staffPassword').value;
+    const pharmacyCode = document.getElementById('pharmacyCode').value;
+    
+    const user = dummyStaff.find(staff => staff.username === username && staff.password === password && staff.pharmacyCode === pharmacyCode);
+    
+    if (user) {
+        alert("تم تسجيل الدخول بنجاح!");
+        // يمكنك إعادة توجيه المستخدم إلى لوحة التحكم هنا
+    } else {
+        alert("بيانات تسجيل الدخول غير صحيحة!");
+    }
+}
+
+function handlePharmacyLogin(event) {
+    event.preventDefault();
+    const pharmacyCode = document.getElementById('pharmacyLoginCode').value;
+    const password = document.getElementById('pharmacyPassword').value;
+    
+    const pharmacy = dummyPharmacies.find(ph => ph.pharmacyCode === pharmacyCode && ph.password === password);
+    
+    if (pharmacy) {
+        alert("تم تسجيل الدخول بنجاح!");
+        // يمكنك إعادة توجيه الصيدلية إلى لوحة التحكم الخاصة بها هنا
+    } else {
+        alert("بيانات تسجيل الدخول غير صحيحة!");
+    }
+}
+
+
+
+function switchTab(type) {
+      const tabs = document.querySelectorAll('.tab');
+      const staffForm = document.getElementById('staffLoginForm');
+      const pharmacyForm = document.getElementById('pharmacyLoginForm');
+      const newStaffForm = document.getElementById('newStaffForm');
+      
+      tabs.forEach(tab => tab.classList.remove('active'));
+      
+      if(type === 'staff'){
+        tabs[0].classList.add('active');
+        staffForm.classList.remove('hidden');
+        pharmacyForm.classList.add('hidden');
+        newStaffForm.classList.add('hidden');
+      } else {
+        tabs[1].classList.add('active');
+        staffForm.classList.add('hidden');
+        pharmacyForm.classList.remove('hidden');
+        newStaffForm.classList.add('hidden');
+      }
+    }
+    
+    function toggleNewStaffForm(){
+      const loginForm = document.getElementById('staffLoginForm');
+      const newForm = document.getElementById('newStaffForm');
+      loginForm.classList.toggle('hidden');
+      newForm.classList.toggle('hidden');
+    }
+    
+    function generateStaffId(){
+      return 'EMP' + Math.random().toString(36).substr(2, 9).toUpperCase();
+    }
+    
+    function handleNewStaffRegistration(event){
+      event.preventDefault();
+      const staffId = generateStaffId();
+      const fullName = document.getElementById('newStaffFullName').value;
+      const username = document.getElementById('newStaffUsername').value;
+      const pharmacyCode = document.getElementById('newPharmacyCode').value;
+      
+      const successMessage = document.createElement('div');
+      successMessage.className = 'success-message';
+      successMessage.textContent = `تم التسجيل بنجاح! رقم الموظف الخاص بك هو: ${staffId}`;
+      event.target.appendChild(successMessage);
+      
+      return false;
+    }
+    
+    // بيانات تجريبية للمستخدمين
+    const dummyStaff = [
+      {
+        username: "ahmed",
+        password: "pass123",
+        pharmacyCode: "PH001",
+        fullName: "أحمد محمود",
+        employeeId: "EMP0001",
+        phone: "0123456789",
+        email: "ahmed@example.com"
+      },
+      { username: "ahmed", password: "pass123", pharmacyCode: "PH001" },
+      { username: "staff2", password: "5678", pharmacyCode: "PH002" }
+    ];
+    
+    const dummyPharmacies = [
+      { pharmacyCode: "PH001", password: "admin123" },
+      { pharmacyCode: "PH002", password: "admin456" }
+    ];
+    
+    function handleStaffLogin(event){
+      event.preventDefault();
+      const username = document.getElementById('staffUsername').value;
+      const password = document.getElementById('staffPassword').value;
+      const pharmacyCode = document.getElementById('pharmacyCode').value;
+      
+      const user = dummyStaff.find(staff => 
+        staff.username === username &&
+        staff.password === password &&
+        staff.pharmacyCode === pharmacyCode
+      );
+      
+      if(user){
+        alert("تم تسجيل الدخول بنجاح!");
+        // إذا كان المستخدم هو "أحمد" نقوم بإعادة توجيهه إلى صفحة الداشبورد
+        if(user.username === "ahmed"){
+          window.location.href = "worker.html";
+        } else {
+          alert("ليس لديك صلاحية الدخول لهذه الصفحة.");
+        }
+      } else {
+        alert("بيانات تسجيل الدخول غير صحيحة!");
+      }
+      return false;
+    }
+    
+    function handlePharmacyLogin(event){
+      event.preventDefault();
+      const pharmacyCode = document.getElementById('pharmacyLoginCode').value;
+      const password = document.getElementById('pharmacyPassword').value;
+      
+      const pharmacy = dummyPharmacies.find(ph => 
+        ph.pharmacyCode === pharmacyCode && ph.password === password
+      );
+      
+      if(pharmacy){
+        alert("تم تسجيل الدخول بنجاح!");
+        // يمكنك إعادة توجيه الصيدلية إلى صفحة الداشبورد الخاصة بها هنا
+      } else {
+        alert("بيانات تسجيل الدخول غير صحيحة!");
+      }
+      return false;
+    }
+    </script>
+</body>
+</html>

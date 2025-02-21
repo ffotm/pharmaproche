@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>pharmaproche</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+            /* Changed to Tajawal for better Arabic support */
+        }
+        
+        .navbar-brand {
+            width: 70px;
+            height: 60px;
+            padding: 5px;
+        }
+        
+        button {
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        .footer {
+            background-color: #00220f;
+            color: #fff;
+            padding: 3rem 0 1rem;
+            font-family: 'Cairo', sans-serif;
+            direction: rtl;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 4rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-heading {
+            color: #7effa9;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.7rem;
+        }
+        
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #ffffff;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-link {
+            color: #e8eaf6;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .footer-link:hover {
+            color: #ffffff;
+        }
+        
+        .footer-link i,
+        .contact-info i {
+            margin-left: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .contact-info li {
+            display: flex;
+            align-items: center;
+        }
+        
+        .social-icons {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #ffffff;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background-color: #8c9eff;
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .copyright {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        .footer-bottom-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .footer-bottom-links a {
+            color: #e8eaf6;
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer-bottom-links a:hover {
+            opacity: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+         :root {
+            --primary-color: #008037;
+            --secondary-color: #a8cf45;
+            --text-dark: #2D3748;
+            --text-light: #666;
+            --border-color: #e2e8f0;
+            --white: #ffffff;
+            --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            margin-top: 80px;
+        }
+        
+        .header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        svg {
+            width: 40px;
+            height: 40px;
+            order: 10;
+            display: block;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .scanner-section {
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            overflow: visible;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary-color);
+            background-color: #f8f9fa;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+        
+        .product-title {
+            flex-grow: 1;
+        }
+        
+        .product-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .product-name-ar {
+            font-size: 1em;
+            color: #666;
+            text-align: right;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .quantity-btn {
+            background: #e2e8f0;
+            border: none;
+            border-radius: 4px;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bolder;
+            text-align: center;
+        }
+        
+        .cart-quantity {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .selected .cart-quantity {
+            display: flex;
+        }
+        
+        .badge-prescription {
+            background-color: #E53E3E;
+        }
+        
+        .badge-otc {
+            background-color: #38A169;
+        }
+        
+        .badge-stock {
+            background-color: #38A169;
+        }
+        
+        .badge-out {
+            background-color: #E53E3E;
+        }
+        
+        .product-description {
+            color: #666;
+            margin: 10px 0;
+        }
+        
+        .product-category {
+            font-size: 0.9em;
+            color: #4A5568;
+            margin-bottom: 10px;
+        }
+        
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+        
+        .product-price {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2D3748;
+        }
+        
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        #productsGrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin-left: 60px;
+            margin-bottom: 20px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .product-card.selected {
+            border: 2px solid #38A169;
+            background-color: #f0fff4;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        #bottombar {
+            /* Hidden by default */
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 15px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            text-align: center;
+            color: rgb(0, 0, 0);
+        }
+        
+        .cart-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .confirm-btn {
+            background: #38A169;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s;
+        }
+        
+        .confirm-btn:hover {
+            background: #2F855A;
+        }
+        
+        .confirm-btn:disabled {
+            background: #A0AEC0;
+            cursor: not-allowed;
+        }
+    </style>
+
+
+</head>
+
+
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="#" class="logo" style="display: flex; align-items: center;">
+                <img src="/img/pharma-removebg-preview.png" alt="Logo" style="width: 120px; height: auto;">
+            </a>
+            <div class="nav-links" style="display: flex; gap: 20px; align-items: center;">
+                <a href="index.html" style="color:#008037; text-decoration: none; font-size: 1em;">الرئيسية</a>
+                <a href="#" style="color: #008037; text-decoration: none; font-size: 1em;">الصيدليات</a>
+                <a href="#" style="color: #008037; text-decoration: none; font-size: 1em;">الأدوية</a>
+                <a href="Contactus.html" style="color: #008037; text-decoration: none; font-size: 1em;">اتصل بنا</a>
+                <a href="login.html" class="login-button" style="padding: 10px 20px; font-size: 1em; background-color:#008037; color: white; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; text-decoration: none;">تسجيل الدخول</a>
+                <button class="language-switch" onclick="toggleLanguage()" dir="ltr" style="padding: 10px 20px; font-size: 1em; background-color:#008037; color: white; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;">English</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container ">
+        <div class="row justify-content-center">
+            <div class="col-md-6 c1">
+                <section class="scanner-section">
+                    <h2 class="text-center mb-4">ماسح المستندات</h2>
+                    <div class="upload-area" id="upload-area">
+                        <label class="file-input-label " for="file-input">
+<input type="file" id="file-input" accept="image/* " style="display: none; ">
+                <div class=" image-container upload m-3 "  style="margin: 30px;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048" style="shape-rendering:geometricPrecision;text-rendering:geometricPrecision;image-rendering:optimizeQuality;fill-rule:evenodd;clip-rule:evenodd"><defs><style>.fil0{fill:#212121;fill-rule:nonzero}</style></defs><g id="Layer_x0020_1"><g id="_559824504"><path id="_559824840" class="fil0" d="M288 462.52h1472c17.673 0 32 14.328 32 32v1058.96c0 17.674-14.327 32.002-32 32.002H288c-17.673 0-32-14.328-32-32.001V494.52c0-17.673 14.327-32.001 32-32.001zm1440 64.002H320v994.958h1408V526.522z"/><path id="_559825008" class="fil0" d="M440.758 594.063h1166.48c17.673 0 32 14.328 32 32v795.874c0 17.673-14.327 32-32 32H440.758c-17.673 0-32-14.327-32-32V626.064c0-17.673 14.327-32.001 32-32.001zm1134.48 64.002H472.758v731.872h1102.48V658.065z"/><path id="_559824816" class="fil0" d="M1376.67 686.063c38.472 0 73.308 15.599 98.522 40.813 25.214 25.214 40.813 60.05 40.813 98.522 0 38.472-15.6 73.307-40.813 98.521-25.214 25.215-60.05 40.813-98.522 40.813-38.472 0-73.308-15.598-98.522-40.813-25.214-25.214-40.813-60.05-40.813-98.521 0-38.472 15.6-73.308 40.813-98.522 25.216-25.217 60.049-40.813 98.522-40.813zm53.271 86.064c-13.629-13.63-32.465-22.062-53.271-22.062-20.806 0-39.641 8.43-53.271 22.061-13.63 13.63-22.062 32.465-22.062 53.272 0 20.806 8.433 39.642 22.062 53.271 13.629 13.629 32.465 22.062 53.271 22.062 20.806 0 39.643-8.433 53.271-22.062 13.63-13.629 22.062-32.465 22.062-53.271 0-20.807-8.433-39.643-22.062-53.272z"/><path id="_559824360" class="fil0" d="M960.582 1453.94H499.214c-17.673 0-32-14.328-32-32a31.869 31.869 0 0 1 6.713-19.61l229.152-365.906 27 16.876-27.12-16.984c9.378-14.978 29.126-19.516 44.104-10.137a31.854 31.854 0 0 1 11.705 12.942l229.16 365.919.135-.085c9.38 14.977 4.842 34.725-10.136 44.104a31.844 31.844 0 0 1-17.344 4.88zm-403.759-64.002h346.51l-173.255-276.65-173.255 276.65z"/><path id="_559824552" class="fil0" d="M1299.64 1453.94h-338.7c-12.594 0-23.486-7.277-28.71-17.855l-136.275-217.602-.136.085c-7.337-11.716-6.158-26.351 1.873-36.659L965.47 914.005l27 16.876-27.12-16.984c9.379-14.978 29.127-19.516 44.105-10.137a31.845 31.845 0 0 1 11.704 12.942l305.825 488.338.136-.085c9.38 14.977 4.841 34.725-10.136 44.104a31.844 31.844 0 0 1-17.345 4.88zm-321.173-64.002h263.923L992.47 990.87l-131.962 210.715 117.959 188.354z"/></g></g><path style="fill:none" d="M0 0h2048v2048H0z"/></svg>
+                   </div>
+                </label>
+                        <p class="mb-0">اضغط هنا لرفع صورة الوصفة الطبية</p>
+                    </div>
+                    <div id="image-preview-container" class="mt-4">
+                        <img id="image-preview" class="img-fluid" style="display: none;">
+                        <canvas id="highlight-canvas"></canvas>
+                    </div>
+                    <button class="btn btn-primary w-100 mt-3" onclick="scanImage()">مسح</button>
+                </section>
+            </div>
+
+            <div class="col-md-6">
+                <section class="scanner-section">
+                    <h2 class="text-center mb-4">نتيجة المسح</h2>
+                    <div id="productsGrid" class="row g-4"></div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <div id="bottombar" class="cart-summary" style="display: none;">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex gap-4">
+                    <span>عدد الطلبيات: <strong id="itemCount">0</strong></span>
+                    <span>الثمن الكلي: <strong id="totalPrice">0 دج</strong></span>
+                </div>
+                <button id="confirmBtn" class="btn btn-primary" disabled onclick="goToCart()">
+                    تأكيد الطلبيات
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- <div class="container" style="padding: 20px;">
+<div id="productsGrid" class="products-grid"></div>
+        <div id="productsGrid"></div>
+        <div id="bottombar" style="display: none;">
+            <div class="cart-info">
+                <div>عدد الطلبيات: <span id="itemCount">0</span></div>
+                <div>الثمن الكلي:<span id="totalPrice">0 دج</span></div>
+                <button id="confirmBtn" class="confirm-btn" disabled onclick="goToCart()">تأكيد الطلبيات</button>
+
+            </div>
+
+        </div>
+
+    </div>-->
+
+
+
+
+    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3 class="footer-heading">روابط سريعة</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link"><i class="fas fa-home"></i> الرئيسية</a></li>
+                        <li><a href="#" class="footer-link"><i class="fas fa-store"></i> الصيدليات</a></li>
+                        <li><a href="#" class="footer-link"><i class="fas fa-pills"></i> الأدوية</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-heading">خدماتنا</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link"><i class="fas fa-search"></i> البحث عن صيدلية</a></li>
+                        <li><a href="#" class="footer-link"><i class="fas fa-prescription"></i> طلب دواء</a></li>
+                        <li><a href="#" class="footer-link"><i class="fas fa-truck"></i> التوصيل</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-heading">تواصل معنا</h3>
+                    <ul class="footer-links contact-info">
+                        <li><i class="fas fa-phone"></i> هاتف: 123-456-7890</li>
+                        <li><i class="fas fa-envelope"></i> البريد: info@pharmacyfinder.com</li>
+                        <li class="social-icons">
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright">جميع الحقوق محفوظة &copy; 2025 - PharmaProche</p>
+                <div class="footer-bottom-links">
+                    <a href="#">سياسة الخصوصية</a>
+                    <a href="#">الشروط والأحكام</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/4.0.2/tesseract.min.js "></script>
+    <script>
+        document.getElementById('file-input').addEventListener('change', function(event) {
+            const img = document.getElementById("image-preview");
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+                    img.onload = function() {
+                        const canvas = document.getElementById("highlight-canvas");
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                    };
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        const medicines = [{
+                id: 1,
+                name: "Paracetamol",
+                arabicName: "باراسيتاموم",
+                price: 150,
+                category: "مسكن الالم",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 2,
+                name: "Amoxicillin",
+                arabicName: "أموكسيسيلين",
+                price: 200,
+                category: "مضاد حيوي",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 3,
+                name: "Vitamin D3",
+                arabicName: "فيتامين د٣",
+                price: 750,
+                category: "فيتامينات",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 4,
+                name: "Omeprazole",
+                arabicName: "أوميبرازول",
+                price: 550,
+                category: "تسهيل الهضم",
+                inStock: false,
+                prescription: true
+            }, {
+                id: 5,
+                name: "Cetirizine",
+                arabicName: "سيتريزين",
+                price: 300,
+                category: "الحساسية",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 6,
+                name: "Ibuprofen",
+                arabicName: "ايبوبروفي",
+                price: 200,
+                category: "مسكن الالم",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 7,
+                name: "Metformin",
+                arabicName: "ميتفورمين",
+                price: 300,
+                category: "علاج السكري",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 9,
+                name: "Loratadine",
+                arabicName: "لوراتادين",
+                price: 120,
+                category: "مضاد حساسية",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 10,
+                name: "Salbutamol",
+                arabicName: "سالبوتامول",
+                price: 200,
+                category: "علاج الربو",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 11,
+                name: "Losartan",
+                arabicName: "لوسارتان",
+                price: 300,
+                category: "علاج ضغط الدم",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 12,
+                name: "Aspirin",
+                arabicName: "أسبرين",
+                price: 100,
+                category: "مميع للدم",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 13,
+                name: "Gaviscon",
+                arabicName: "جافيسكون",
+                price: 210,
+                category: "مضاد حموضة",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 14,
+                name: "Augmentin",
+                arabicName: "أوجمنتين",
+                price: 450,
+                category: "مضاد حيوي",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 15,
+                name: "Efferalgan",
+                arabicName: "إيفيرالغان",
+                price: 130,
+                category: "مسكن وخافض للحرارة",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 16,
+                name: "Doliprane",
+                arabicName: "دوليبران",
+                price: 150,
+                category: "مسكن وخافض للحرارة",
+                inStock: true,
+                prescription: false
+
+            },
+
+
+
+
+            {
+                id: 17,
+                name: "Nurofen",
+                arabicName: "نيروفين",
+                price: 220,
+                category: "مسكن ومضاد التهاب",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 18,
+                name: "Spiramycin",
+                arabicName: "سبيراميسين",
+                price: 450,
+                category: "مضاد حيوي",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 19,
+                name: "Fucidin",
+                arabicName: "فيوسيدين",
+                price: 280,
+                category: "مضاد حيوي موضعي",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 20,
+                name: "Ciprofloxacin",
+                arabicName: "سيبروفلوكساسين",
+                price: 400,
+                category: "مضاد حيوي",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 21,
+                name: "Euphylline",
+                arabicName: "إيوفيللين",
+                price: 320,
+                category: "موسع للقصبات",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 22,
+                name: "Rennie",
+                arabicName: "ريني",
+                price: 180,
+                category: "مضاد حموضة",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 23,
+                name: "Smecta",
+                arabicName: "سميكتا",
+                price: 160,
+                category: "مضاد إسهال",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 24,
+                name: "Maalox",
+                arabicName: "مالوكس",
+                price: 200,
+                category: "مضاد حموضة",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 25,
+                name: "Flagyl",
+                arabicName: "فلاجيل",
+                price: 250,
+                category: "مضاد طفيليات وبكتيريا",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 26,
+                name: "Aerius",
+                arabicName: "أيريوس",
+                price: 270,
+                category: "مضاد حساسية",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 27,
+                name: "Zyrtec",
+                arabicName: "زيرتيك",
+                price: 260,
+                category: "مضاد حساسية",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 28,
+                name: "Telfast",
+                arabicName: "تلفاست",
+                price: 280,
+                category: "مضاد حساسية",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 29,
+                name: "Tramal",
+                arabicName: "ترامال",
+                price: 500,
+                category: "مسكن قوي",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 30,
+                name: "Morphine",
+                arabicName: "مورفين",
+                price: 1000,
+                category: "مسكن أفيوني",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 31,
+                name: "Dafalgan",
+                arabicName: "دافالغن",
+                price: 180,
+                category: "مسكن وخافض للحرارة",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 32,
+                name: "Solupred",
+                arabicName: "سولوبريد",
+                price: 340,
+                category: "كورتيكوستيرويد",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 33,
+                name: "Amoxil",
+                arabicName: "أموكسيل",
+                price: 200,
+                category: "مضاد حيوي",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 34,
+                name: "Xanax",
+                arabicName: "زانكس",
+                price: 600,
+                category: "مهدئ للقلق",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 35,
+                name: "Lexomil",
+                arabicName: "ليكسوميل",
+                price: 550,
+                category: "مهدئ للقلق",
+                inStock: true,
+                prescription: true
+            }, {
+                id: 36,
+                name: "Spasfon",
+                arabicName: "سباسفون",
+                price: 180,
+                category: "مضاد تقلصات",
+                inStock: true,
+                prescription: false
+            }, {
+                id: 37,
+                name: "Celestene",
+                arabicName: "سيليستين",
+                price: 270,
+                category: "كورتيكوستيرويد",
+                inStock: true,
+                prescription: true
+            },
+
+        ];
+
+        let cart = new Map();
+
+        function updateCartSummary() {
+            const itemCount = document.getElementById('itemCount');
+            const totalPrice = document.getElementById('totalPrice');
+            const confirmBtn = document.getElementById('confirmBtn');
+            let bottomBar = document.getElementById("bottombar");
+            const totalItems = Array.from(cart.values()).reduce((sum, qty) => sum + qty, 0);
+            bottomBar.style.display = totalItems > 0 ? "flex" : "none";
+
+            let total = 0,
+                count = 0;
+
+            cart.forEach((quantity, medicine) => {
+                count += quantity;
+                total += medicine.price * quantity;
+            });
+
+            itemCount.textContent = count;
+            totalPrice.textContent = `${total} DA`;
+            confirmBtn.disabled = count === 0;
+        }
+
+        function goToCart() {
+            sessionStorage.setItem("cartData", JSON.stringify(Array.from(cart.entries())));
+            window.location.href = "confirmation/cart.html";
+
+        }
+
+        function toggleMedicineInCart(medicine, card) {
+            if (!medicine.inStock) {
+                alert("لا يوجد");
+                return;
+            }
+
+            if (!cart.has(medicine)) {
+                cart.set(medicine, 1);
+                card.classList.add('selected');
+            }
+
+            updateCartSummary();
+        }
+
+
+        function updateQuantity(medicine, change, card) {
+            if (cart.has(medicine)) {
+                let newQuantity = cart.get(medicine) + change;
+
+                if (newQuantity <= 0) {
+                    cart.delete(medicine);
+                    card.classList.remove('selected');
+                } else {
+                    cart.set(medicine, newQuantity);
+                }
+            } else if (change > 0) {
+                cart.set(medicine, 1);
+                card.classList.add('selected');
+            }
+
+
+            const quantitySpan = card.querySelector('.quantity');
+            quantitySpan.textContent = cart.get(medicine) || 0;
+
+
+            const minusButton = card.querySelector('.minus');
+            minusButton.style.display = cart.get(medicine) > 0 ? 'inline-block' : 'none';
+
+            updateCartSummary();
+        }
+
+        function scanImage() {
+            let input = document.getElementById('file-input').files[0];
+            if (!input) {
+                alert("Please upload an image.");
+                return;
+            }
+
+            let reader = new FileReader();
+            reader.onload = function() {
+                Tesseract.recognize(reader.result, 'ara+eng', {
+                    logger: m => console.log(m)
+                }).then(({
+                    data
+                }) => {
+                    let detectedMeds = data.words
+                        .map(word => word.text.trim())
+                        .filter(word => medicines.some(med => med.name.toLowerCase() === word.toLowerCase() || med.arabicName === word));
+
+                    displayScannedMeds(detectedMeds);
+                }).catch(err => console.error("OCR Error:", err));
+            };
+
+            reader.readAsDataURL(input);
+        }
+
+        function displayScannedMeds(extractedMeds) {
+            const productsGrid = document.getElementById('productsGrid');
+            if (!productsGrid) {
+                console.error("error");
+                return;
+            }
+
+            productsGrid.innerHTML = '';
+
+            if (extractedMeds.length === 0) {
+                productsGrid.innerHTML = `<p class="text-muted">لم يتم العثور على أي أدوية.</p>`;
+                return;
+            }
+
+            extractedMeds.forEach(medName => {
+                const medicine = medicines.find(m => m.name.toLowerCase() === medName.toLowerCase() || m.arabicName === medName);
+
+                if (medicine) {
+                    productsGrid.innerHTML += `
+ <div class="product-card ${cart.has(medicine) ? 'selected' : ''}" data-id="${medicine.id}">
+                    <div class="cart-quantity">
+                        <button class="quantity-btn minus">-</button>
+                        <span class="quantity">${cart.get(medicine) || 1}</span>
+                        <button class="quantity-btn plus">+</button>
+                    </div>
+                    <div class="product-header">
+                        <div class="product-title">
+                            <div class="product-name">${medicine.name}</div>
+                            <div class="product-name-ar">${medicine.arabicName}</div>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="badge ${medicine.prescription ? 'badge-prescription' : 'badge-otc'}">
+                            ${medicine.prescription ? 'وصفة طبية مطلوبة' : 'دون وصفة طبية'}
+                        </span>
+                    </div>
+                    <div class="product-category p-2">الصنف: ${medicine.category}</div>
+                    <div class="product-footer">
+                        <div class="product-price">${medicine.price}</div>
+                        <span class="badge ${medicine.inStock ? 'badge-stock' : 'badge-out'}">
+                            ${medicine.inStock ? 'In Stock' : 'Out of Stock'}
+                        </span>
+                    </div>
+                
+
+
+            `;
+                } else {
+                    productsGrid.innerHTML += `
+                <div class="product-card m-2 unavailable">
+                    <div class="product-header">
+                        <div class="product-title">
+                            <div class="product-name">${medName}</div>
+                            <div class="product-name-ar">غير متوفر</div>
+                        </div>
+                    </div>
+                    <div class="product-footer">
+                        <span class="badge badge-out">Not Available</span>
+                    </div>
+                </div>
+            `;
+                }
+            })
+            document.querySelectorAll('.product-card').forEach(card => {
+                const medicine = medicines.find(m => m.id == card.dataset.id);
+
+                card.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('quantity-btn')) {
+                        toggleMedicineInCart(medicine, card);
+                    }
+                });
+
+                card.querySelector('.minus').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    updateQuantity(medicine, -1, card);
+                });
+
+                card.querySelector('.plus').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    updateQuantity(medicine, +1, card);
+                });
+            });
+        }
+
+
+
+
+
+
+        /*const LANG = {
+            AR: 'ar',
+            EN: 'en'
+        };
+
+        const MESSAGES = {
+            [LANG.AR]: {
+                noWordsFound: 'لم يتم العثور على كلمات',
+                uploadPrompt: 'الرجاء تحميل صورة'
+            },
+            [LANG.EN]: {
+                noWordsFound: 'No words found',
+                uploadPrompt: 'Please upload an image'
+            }
+        };
+
+
+
+        Medicine Data
+        const medicines = [
+            { id: 1, name: "Paracetamol", arabicName: "باراسيتامول", price: "150da", category: "Pain Relief", inStock: true, prescription: false },
+            { id: 2, name: "Amoxicillin", arabicName: "أموكسيسيلين", price: "2000da", category: "Antibiotics", inStock: true, prescription: true },
+            { id: 3, name: "Vitamin D3", arabicName: "فيتامين د٣", price: "750da", category: "Vitamins", inStock: true, prescription: false },
+            { id: 4, name: "Omeprazole", arabicName: "أوميبرازول", price: "550da", category: "Digestive Health", inStock: false, prescription: true },
+            { id: 5, name: "Cetirizine", arabicName: "سيتريزين", price: "300da", category: "Allergy", inStock: true, prescription: false },
+            { id: 6, name: "Ibuprofen", arabicName: "ايبوبروفين", price: "150da", category: "Pain Relief", inStock: true, prescription: false }
+        ];
+
+        // Generate keywords from medicine names and Arabic names
+        const keywords = [
+            ...medicines.map(med => med.name.toLowerCase()),
+            ...medicines.map(med => med.arabicName)
+        ];
+
+        // Image Processing Class
+        class ImageProcessor {
+            constructor(keywords) {
+                this.keywords = keywords;
+                this.setupEventListeners();
+            }
+
+            setupEventListeners() {
+                const fileInput = document.getElementById('file-input');
+                if (fileInput) {
+                    fileInput.addEventListener('change', this.handleFileUpload.bind(this));
+                }
+            }
+
+            async handleFileUpload(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+
+                try {
+                    const imageUrl = await this.loadImage(file);
+                    await this.setupImagePreview(imageUrl);
+                } catch (error) {
+                    console.error('Error handling file upload:', error);
+                }
+            }
+
+            loadImage(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            async setupImagePreview(imageUrl) {
+                const img = document.getElementById('image-preview');
+                if (!img) return;
+
+                img.src = imageUrl;
+                img.style.display = 'block';
+
+                await new Promise(resolve => {
+                    img.onload = () => {
+                        this.setupCanvas(img);
+                        resolve();
+                    };
+                });
+            }
+
+            setupCanvas(img) {
+                const canvas = document.getElementById('highlight-canvas');
+                if (!canvas) return;
+
+                canvas.width = img.width;
+                canvas.height = img.height;
+                this.matchCanvasToImage(img, canvas);
+            }
+
+            matchCanvasToImage(img, canvas) {
+                canvas.style.position = 'absolute';
+                canvas.style.top = `${img.offsetTop}px`;
+                canvas.style.left = `${img.offsetLeft}px`;
+                canvas.style.width = `${img.width}px`;
+                canvas.style.height = `${img.height}px`;
+            }
+
+            async scanImage() {
+                const fileInput = document.getElementById('file-input');
+                const file = fileInput ? .files[0];
+
+                if (!file) {
+                    alert(MESSAGES[document.documentElement.lang].uploadPrompt);
+                    return;
+                }
+
+                try {
+                    const imageUrl = await this.loadImage(file);
+                    const { data } = await Tesseract.recognize(imageUrl, 'ara+eng', {
+                        logger: m => console.log(m)
+                    });
+
+                    const detectedWords = this.processWords(data.words);
+                    this.displayDetectedWords(detectedWords);
+                    this.highlightWords(data.words);
+
+                    return detectedWords;
+                } catch (error) {
+                    console.error('OCR Error:', error);
+                    return [];
+                }
+            }
+
+            processWords(words) {
+                return words
+                    .map(word => word.text.trim())
+                    .filter(word => this.keywords.includes(word.toLowerCase()) ||
+                        this.keywords.includes(word));
+            }
+
+            displayDetectedWords(detectedWords) {
+                const outputList = document.getElementById('highlighted-words-list');
+                if (!outputList) return;
+
+                outputList.innerHTML = detectedWords.length === 0 ?
+                    `<li>${MESSAGES[document.documentElement.lang].noWordsFound}</li>` :
+                    detectedWords.map(word => `<li>${word}</li>`).join('');
+            }
+
+            highlightWords(words) {
+                const img = document.getElementById('image-preview');
+                const canvas = document.getElementById('highlight-canvas');
+                const ctx = canvas ? .getContext('2d');
+
+                if (!ctx || !img) return;
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                const scaleX = img.naturalWidth / words[0].page.width;
+                const scaleY = img.naturalHeight / words[0].page.height;
+
+                words.forEach(word => {
+                    if (this.keywords.includes(word.text.toLowerCase()) ||
+                        this.keywords.includes(word.text)) {
+                        this.drawHighlight(ctx, word, scaleX, scaleY);
+                    }
+                });
+            }
+
+            drawHighlight(ctx, word, scaleX, scaleY) {
+                const { x0, y0, x1, y1 } = word.bbox;
+                const width = (x1 - x0) * scaleX;
+                const height = (y1 - y0) * scaleY;
+                const x = x0 * scaleX;
+                const y = y0 * scaleY;
+
+                ctx.strokeStyle = 'red';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(x, y, width, height);
+                ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
+                ctx.fillRect(x, y, width, height);
+            }
+        }
+
+        // Medicine Display Class
+        class MedicineDisplay {
+            constructor(medicines) {
+                this.medicines = medicines;
+            }
+
+            displayScannedMeds(extractedMeds) {
+                const productsGrid = document.getElementById('productsGrid');
+                if (!productsGrid) return;
+
+                productsGrid.innerHTML = extractedMeds
+                    .map(medName => this.createMedicineCard(medName))
+                    .join('');
+            }
+
+            createMedicineCard(medName) {
+                const medicine = this.medicines.find(m =>
+                    m.name.toLowerCase() === medName.toLowerCase() ||
+                    m.arabicName === medName
+                );
+
+                return medicine ?
+                    this.createAvailableMedicineCard(medicine) :
+                    this.createUnavailableMedicineCard(medName);
+            }
+
+            createAvailableMedicineCard(medicine) {
+                return `
+                    <div class="product-card m-2 ${medicine.inStock ? 'available' : 'unavailable'}">
+                        <div class="product-header">
+                            <div class="product-title">
+                                <div class="product-name">${medicine.name}</div>
+                                <div class="product-name-ar">${medicine.arabicName}</div>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="badge ${medicine.prescription ? 'badge-prescription' : 'badge-otc'}">
+                                ${medicine.prescription ? 'Prescription Required' : 'Over the Counter'}
+                            </span>
+                        </div>
+                        <div class="product-category p-2">Category: ${medicine.category}</div>
+                        <div class="product-footer">
+                            <div class="product-price">${medicine.price}</div>
+                            <span class="badge ${medicine.inStock ? 'badge-stock' : 'badge-out'}">
+                                ${medicine.inStock ? 'In Stock' : 'Out of Stock'}
+                            </span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            createUnavailableMedicineCard(medName) {
+                return `
+                    <div class="product-card m-2 unavailable">
+                        <div class="product-header">
+                            <div class="product-title">
+                                <div class="product-name">${medName}</div>
+                                <div class="product-name-ar">غير متوفر</div>
+                            </div>
+                        </div>
+                        <div class="product-footer">
+                            <span class="badge badge-out">Not Available</span>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Language Toggle Function
+        function toggleLanguage() {
+            const button = document.querySelector('.eng');
+            const isArabic = document.documentElement.lang === LANG.AR;
+
+            document.documentElement.lang = isArabic ? LANG.EN : LANG.AR;
+            button.textContent = isArabic ? 'العربية' : 'English';
+            button.dir = isArabic ? 'rtl' : 'ltr';
+        }
+
+        // Initialize
+        const imageProcessor = new ImageProcessor(keywords);
+        const medicineDisplay = new MedicineDisplay(medicines);*/
+
+
+
+
+
+
+
+
+        /*const keywords = ["lorem", "ipsum"];
+
+        document.getElementById('file-input').addEventListener('change', function(event) {
+            const img = document.getElementById("image-preview");
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('image-preview').src = e.target.result;
+                    document.getElementById('image-preview').style.display = 'block'; // image
+                    img.onload = function() {
+                        const canvas = document.getElementById("highlight-canvas");
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        matchCanvasToImage();
+                    };
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function scanImage() {
+            let input = document.getElementById('file-input').files[0];
+            if (!input) {
+                alert("Please upload an image.");
+                return;
+            }
+
+
+            let reader = new FileReader();
+            reader.onload = function() {
+                Tesseract.recognize(reader.result, 'ara+eng', {
+                    logger: m => console.log(m)
+                }).then(({ data }) => {
+
+                    let detectedWords = data.words
+                        .map(word => word.text.trim())
+                        .filter(word => keywords.includes(word.toLowerCase()));
+                    displayDetectedWords(detectedWords);
+                    highlightWords(data.words);
+                }).catch(err => console.error("OCR Error:", err));
+            };
+
+            reader.readAsDataURL(input);
+        }
+
+        function displayDetectedWords(detectedWords) {
+            let outputList = document.getElementById("highlighted-words-list");
+            outputList.innerHTML = "";
+
+            if (detectedWords.length === 0) {
+                outputList.innerHTML = "<li>لم يتم العثور على كلماة</li>";
+            } else {
+                detectedWords.forEach(word => {
+                    let li = document.createElement("li");
+                    li.textContent = word;
+                    outputList.appendChild(li);
+                });
+            }
+
+        }
+
+        function highlightWords(words) {
+            const img = document.getElementById("image-preview");
+            const canvas = document.getElementById("highlight-canvas");
+            const ctx = canvas.getContext("2d");
+
+            if (!ctx) {
+                console.error("Canvas context not found.");
+                return;
+            }
+
+
+
+
+
+            canvas.style.position = "absolute";
+            canvas.style.top = img.offsetTop + "px";
+            canvas.style.left = img.offsetLeft + "px";
+            canvas.style.width = img.width + "px";
+            canvas.style.height = img.height + "px";
+
+            canvas.width = img.naturalWidth;
+            canvas.height = img.naturalHeight;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            words.forEach(word => {
+                if (keywords.includes(word.text.toLowerCase())) {
+                    const { x0, y0, x1, y1 } = word.bbox;
+
+                    let scaleX = img.naturalWidth / word.page.width;
+                    let scaleY = img.naturalHeight / word.page.height;
+
+                    ctx.strokeStyle = "red";
+                    ctx.lineWidth = 2;
+                    ctx.strokeRect(x0 * scaleX, y0 * scaleY, (x1 - x0) * scaleX, (y1 - y0) * scaleY);
+                    ctx.fillStyle = "rgba(255, 0, 0, 0.3)"; // Semi-transparent red
+                    ctx.fillRect(x0 * scaleX, y0 * scaleY, (x1 - x0) * scaleX, (y1 - y0) * scaleY);
+                }
+            });
+        }
+
+
+
+
+        function toggleLanguage() {
+            const button = document.querySelector('.eng');
+            const isArabic = document.documentElement.lang === 'ar';
+
+            document.documentElement.lang = isArabic ? 'en' : 'ar';
+            button.textContent = isArabic ? 'العربية' : 'English';
+            button.dir = isArabic ? 'rtl' : 'ltr';
+        }
+
+
+        const medicines = [
+            { id: 1, name: "Paracetamol", arabicName: "باراسيتامول", price: "150da", category: "Pain Relief", inStock: true, prescription: false },
+            { id: 2, name: "Amoxicillin", arabicName: "أموكسيسيلين", price: "2000da", category: "Antibiotics", inStock: true, prescription: true },
+            { id: 3, name: "Vitamin D3", arabicName: "فيتامين د٣", price: "750da", category: "Vitamins", inStock: true, prescription: false },
+            { id: 4, name: "Omeprazole", arabicName: "أوميبرازول", price: "550da", category: "Digestive Health", inStock: false, prescription: true },
+            { id: 5, name: "Cetirizine", arabicName: "سيتريزين", price: "300da", category: "Allergy", inStock: true, prescription: false },
+            { id: 6, name: "Ibuprofen", arabicName: "ايبوبروفين", price: "150da", category: "Pain Relief", inStock: true, prescription: false }
+        ];
+
+        function displayScannedMeds(extractedMeds) {
+            const productsGrid = document.getElementById('productsGrid');
+            productsGrid.innerHTML = '';
+
+            extractedMeds.forEach(medName => {
+                const medicine = medicines.find(m => m.name.toLowerCase() === medName.toLowerCase() || m.arabicName === medName);
+
+                if (medicine) {
+                    productsGrid.innerHTML += `
+                        <div class="product-card m-2 ${medicine.inStock ? 'available' : 'unavailable'}">
+                            <div class="product-header">
+                                <div class="product-title">
+                                    <div class="product-name">${medicine.name}</div>
+                                    <div class="product-name-ar">${medicine.arabicName}</div>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="badge ${medicine.prescription ? 'badge-prescription' : 'badge-otc'}">
+                                    ${medicine.prescription ? 'Prescription Required' : 'Over the Counter'}
+                                </span>
+                            </div>
+                            <div class="product-category p-2">Category: ${medicine.category}</div>
+                            <div class="product-footer">
+                                <div class="product-price">${medicine.price}</div>
+                                <span class="badge ${medicine.inStock ? 'badge-stock' : 'badge-out'}">
+                                    ${medicine.inStock ? 'In Stock' : 'Out of Stock'}
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    productsGrid.innerHTML += `
+                        <div class="product-card m-2 unavailable">
+                            <div class="product-header">
+                                <div class="product-title">
+                                    <div class="product-name">${medName}</div>
+                                    <div class="product-name-ar">غير متوفر</div>
+                                </div>
+                            </div>
+                            <div class="product-footer">
+                                <span class="badge badge-out">Not Available</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+        }
+
+        // Example: Scanned medicines list (simulated result from OCR)
+        const scannedMeds = ["Paracetamol", "Omeprazole", "Vitamin D3", "Aspirin"];
+        displayScannedMeds(scannedMeds);*/
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | GreenLeaf Pharmacy</title>
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --secondary: #4caf50;
+            --accent: #81c784;
+            --light: #e8f5e9;
+            --dark: #1b5e20;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light);
+            min-height: 100vh;
+            display: flex;
+            justify-content:center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 800px;
+            padding: 2rem;
+            text-align: center;
+            position:static;
+        }
+        
+        .error-title {
+            font-size: 32px;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        
+        .error-code {
+            font-size: 120px;
+            font-weight: 800;
+            color: #008037;
+            line-height: 1;
+            margin: 0;
+            text-shadow: 2px 2px 0 #74b88b;
+            transition: transform 0.3s;
+            z-index: 2;
+        }
+        
+        .message {
+            font-size: 18px;
+            color: #242524;
+            margin: 20px 0;
+            max-width: 790px;
+            margin: 50px auto;
+            line-height: 1.5;
+            
+        }
+        
+        .mortar-pestle {
+            width: 300px;
+            height: 300px;
+            position: relative;
+            margin: 20px auto;
+        }
+        
+        .mortar {
+            width: 180px;
+            height: 90px;
+            background: #e0e0e0;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+            box-shadow: inset 0 -10px 20px rgba(0,0,0,0.2), 0 15px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            perspective: 100px;
+        }
+        
+        .mortar:before {
+            content: "";
+            position: absolute;
+            width: 240px;
+            height: 120px;
+            background: #f5f5f5;
+            border-radius: 50%;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: inset 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .mortar:after {
+            content: "404";
+            position: absolute;
+            top: 30px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 36px;
+            color: var(--primary);
+            opacity: 0.7;
+            z-index: 2;
+        }
+        
+        .pestle {
+            width: 25px;
+            height: 200px;
+            background: #d0d0d0;
+            position: absolute;
+            bottom: 65px;
+            left: 50%;
+            transform: translateX(-50%) rotate(25deg);
+            transform-origin: bottom center;
+            border-radius: 5px 5px 10px 10px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            animation: grind 4s ease-in-out infinite;
+            z-index: 3;
+        }
+        
+        .pestle:before {
+            content: "";
+            position: absolute;
+            width: 45px;
+            height: 45px;
+            background: #c0c0c0;
+            border-radius: 50%;
+            top: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+        }
+        
+        @keyframes grind {
+            0%, 100% { transform: translateX(-80px) rotate(25deg); }
+            50% { transform: translateX(0px) rotate(-25deg); }
+        }
+        
+        .herb {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--secondary);
+            border-radius: 50%;
+            bottom: 30px;
+            left: 50%;
+            animation: bounce 2s infinite;
+            z-index: 2;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 1; }
+            50% { transform: translateY(-15px) scale(1.2); opacity: 0.8; }
+        }
+        
+        .leaf {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            opacity: 0.8;
+        }
+        
+        .leaf:nth-child(1) { top: 5%; left: 10%; animation: floatLeaf 15s infinite; }
+        .leaf:nth-child(2) { top: 20%; right: 15%; animation: floatLeaf 18s infinite; animation-delay: 2s; }
+        .leaf:nth-child(3) { bottom: 15%; left: 20%; animation: floatLeaf 20s infinite; animation-delay: 1s; }
+        .leaf:nth-child(4) { bottom: 25%; right: 10%; animation: floatLeaf 17s infinite; animation-delay: 3s; }
+        .leaf:nth-child(5) { top: 40%; left: 5%; animation: floatLeaf 16s infinite; animation-delay: 4s; }
+        .leaf:nth-child(6) { top: 30%; right: 5%; animation: floatLeaf 19s infinite; animation-delay: 2.5s; }
+        .leaf:nth-child(7) { bottom: 35%; left: 15%; animation: floatLeaf 21s infinite; animation-delay: 3.5s; }
+        .leaf:nth-child(8) { bottom: 10%; right: 20%; animation: floatLeaf 14s infinite; animation-delay: 1.5s; }
+        .leaf:nth-child(9) { top: 15%; left: 25%; animation: floatLeaf 17s infinite; animation-delay: 0.5s; }
+        .leaf:nth-child(10) { top: 10%; right: 25%; animation: floatLeaf 16s infinite; animation-delay: 4.5s; }
+        .leaf:nth-child(11) { bottom: 20%; left: 10%; animation: floatLeaf 22s infinite; animation-delay: 2.5s; }
+        .leaf:nth-child(12) { bottom: 30%; right: 15%; animation: floatLeaf 19s infinite; animation-delay: 3.2s; }
+        
+        @keyframes floatLeaf {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(10deg); }
+            50% { transform: translateY(0) rotate(0deg); }
+            75% { transform: translateY(15px) rotate(-10deg); }
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin-top: 30px;
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+        }
+        
+        .btn:hover {
+            background: var(--dark);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(0,0,0,0.2);
+        }
+        
+        .btn:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover:before {
+            left: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <svg class="leaf" viewBox="0 0 24 24">
+            <path fill="#81c784" d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z" />
+        </svg>
+        <svg class="leaf" viewBox="0 0 24 24">
+            <path fill="#66bb6a" d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z" />
+        </svg>
+        <svg class="leaf" viewBox="0 0 24 24">
+            <path fill="#4caf50" d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z" />
+        </svg>
+        <svg class="leaf" viewBox="0 0 24 24">
+            <path fill="#388e3c" d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z" />
+        </svg>
+        <svg class="leaf" viewBox="0 0 24 24">
+            <path fill="#2e7d32" d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z" />
+        </svg>
+        <svg class="leaf" viewBox="0 0 24 24">
+            <path fill="#81c784" d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z" />
+        </svg>
+        <svg class="leaf" viewBox="0 0 24 24">
+            <path fill="#66bb6a" d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z" />
+        </svg>
+        <svg class="leaf" viewBox="0 0 24 24">
+            <path fill="#4caf50" d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z" />
+        </svg>
+        <svg class="leaf" viewBox="0 0 24 24">
+            <path fill="#388e3c" d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z" />
+        </svg>
+        <svg class="leaf" viewBox="0 0 24 24">
+            <path fill="#2e7d32" d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z" />
+        </svg>
+        <svg class="leaf" viewBox="0 0 24 24">
+            <path fill="#81c784" d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z" />
+        </svg>
+        <svg class="leaf" viewBox="0 0 24 24">
+            <path fill="#66bb6a" d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z" />
+        </svg>
+        
+        <h2 class="error-title">Oops! Remedy Not Found</h2>
+        <h1 class="error-code">404</h1>
+        
+        <div class="mortar-pestle">
+            <div class="mortar"></div>
+            <div class="pestle"></div>
+            <script>
+                for(let i = 0; i < 12; i++) {
+                    document.write(`
+                        <div class="herb" style="
+                            transform: translateX(${(Math.random() * 100 - 50)}px);
+                            opacity: ${Math.random() * 0.5 + 0.3};
+                            background-color: rgba(${46 + Math.random() * 30}, ${125 + Math.random() * 30}, ${50 + Math.random() * 30}, 0.8);
+                            width: ${Math.random() * 10 + 5}px;
+                            height: ${Math.random() * 10 + 5}px;
+                            animation-delay: ${Math.random() * 2}s;
+                        "></div>
+                    `);
+                }
+            </script>
+        </div>
+        
+        <p class="message">We've ground our databases and sifted through all our natural remedies, but this page seems to have vanished from our herbal collection. Our virtual pharmacists are working on brewing up the right solution!</p>
+        
+        <a href="/" class="btn">Return to Our Garden</a>
+    </div>
+    
+    <script>
+        // Add floating effect to the error code
+        const errorCode = document.querySelector('.error-code');
+        let floating = true;
+        
+        function floatAnimation() {
+            if(!floating) return;
+            const randomX = Math.random() * 10 - 5;
+            const randomY = Math.random() * 10 - 5;
+            errorCode.style.transform = `translate(${randomX}px, ${randomY}px)`;
+            setTimeout(() => {
+                errorCode.style.transform = 'translate(0, 0)';
+                setTimeout(floatAnimation, 2000);
+            }, 2000);
+        }
+        
+        floatAnimation();
+        
+        // Stop animation on mobile devices to prevent performance issues
+        if(window.innerWidth <768) {
+            floating = false;
+            errorCode.style.transform = 'none';
+        }
+    </script>
+</body>
+</html>
